@@ -1,16 +1,6 @@
 @extends('template')
 @section('main')
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-      Dashboard
-      <small>Optional description</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-      <li class="active">Here</li>
-    </ol>
-  </section>
+
 
   <!-- Main content -->
   <section class="content container-fluid">
@@ -54,26 +44,35 @@
 
 
                 <table class="table table-striped table-hover " id="tabledaftarprojek">
-  <thead>
-    <tr>
-      <th>No</th>
-      <th>Nama</th>
-      <th>Di Buat</th>
-      <th>Aksi</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($data_projek as $key => $value)
-      <tr>
-        <td>{{ $key + 1 }}</td>
-        <td>{{ $value->nama }}</td>
-        <td>{{ $value->created_at->diffForHumans() }}</td>
-        <td><a href="{{ url('/admin/kirteria/' . $value->id) }}" class="btn btn-primary">Edit Kriteria</a></td>
-      </tr>
-    @endforeach
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama</th>
+                      <th>Di Buat</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($data_projek as $key => $value)
+                      <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $value->nama }}</td>
+                        <td>{{ $value->created_at->diffForHumans() }}</td>
+                        <td>
+                          <form action="{{ url('/admin/hapus/projek') }}" method="post">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <input type="hidden" name="id" value="{{ $value->id }}">
+                            <a href="{{ url('/admin/kriteria/' . $value->id) }}" class="btn btn-primary">Kriteria</a>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                          </form>
 
-  </tbody>
-</table>
+                        </td>
+                      </tr>
+                    @endforeach
+
+                  </tbody>
+                </table>
               </div>
               <!-- /.box-body -->
             </div>

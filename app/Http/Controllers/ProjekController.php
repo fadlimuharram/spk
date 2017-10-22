@@ -26,4 +26,9 @@ class ProjekController extends Controller
     public function readall(){
       return Projek::get();
     }
+
+    public function delete(Request $req){
+      projek::destroy($req->id);
+      return redirect('admin/dataprojek');
+    }
 }

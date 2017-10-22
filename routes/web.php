@@ -17,9 +17,11 @@ Route::get('/', function () {
 Route::group(['middleware'=>['auth']],function(){
   Route::get('/admin/{halaman}','Urlcontroller@admin');
   Route::post('/admin/projek/tambah','ProjekController@create');
-  Route::get('/admin/kirteria/{id}','Urlcontroller@kriteria');//id projek
+  Route::get('/admin/kriteria/{id}','Urlcontroller@kriteria');//id projek
   Route::post('/admin/tambahkriteria','KriteriaController@create');
   Route::get('/admin/alternative/{id}','Urlcontroller@alternative'); //id kriteria
+  Route::post('/admin/tambahalternative','AlternativeController@create');
+  Route::delete('/admin/hapus/projek','ProjekController@delete');
 });
 
 Auth::routes();

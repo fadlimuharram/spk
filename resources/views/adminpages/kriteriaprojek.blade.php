@@ -1,16 +1,6 @@
 @extends('template')
 @section('main')
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-      Dashboard
-      <small>Optional description</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-      <li class="active">Here</li>
-    </ol>
-  </section>
+
 
   <!-- Main content -->
   <section class="content container-fluid">
@@ -30,7 +20,7 @@
                     {{ csrf_field() }}
                     <div class="pilihanchange">
                       <div class="form-group">
-                        <label for="select" class="col-md-5 control-label">Jumlah Kriteria</label>
+                        <label for="select" class="col-md-2 control-label">Jumlah Kriteria</label>
                         <div class="col-md-5">
                           <select class="form-control" id="jmlkriteria">
                             <option value="3">3</option>
@@ -46,27 +36,29 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="select" class="col-md-5 control-label">Kriteria Ke-1</label>
+                        <label for="select" class="col-md-2 control-label">Kriteria Ke-1</label>
                         <div class="col-md-7">
                           <input class="form-control" type="text" name="namakriteria[]" id="kriteria1">
                           <input type="hidden" name="projekid" value="{{ $id_projek }}">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="select" class="col-md-5 control-label">Kriteria Ke-2</label>
+                        <label for="select" class="col-md-2 control-label">Kriteria Ke-2</label>
                         <div class="col-md-7">
                           <input class="form-control" type="text" name="namakriteria[]" id="kriteria2">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="select" class="col-md-5 control-label">Kriteria Ke-3</label>
+                        <label for="select" class="col-md-2 control-label">Kriteria Ke-3</label>
                         <div class="col-md-7">
                           <input class="form-control" type="text" name="namakriteria[]" id="kriteria3">
                         </div>
                       </div>
                       <div class="dynamickriteria"></div>
+                    </div><br />
+                    <div class="legend_tambahbobot">
+                      <legend>Tambah Bobot</legend>
                     </div>
-                    <legend class="legend_tambahbobot">Tambah Bobot</legend>
 
                     <div id="tambahbobotkriteria">
 
@@ -107,7 +99,7 @@
                         <tr>
                           <th>No</th>
                           <th>Nama</th>
-                          <th>hitung</th>
+                          <th>Priority Vector</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -127,8 +119,68 @@
                   <!-- /.box-body -->
                 </div>
           </div>
+
+          @if ($hasil_kesimpulan != '')
+            <div class="col-md-12">
+              <div class="box box-success box-solid">
+              <div class="box-header with-border">
+                <h3 class="box-title">Hasil</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                </div>
+                <!-- /.box-tools -->
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <canvas id="kesimpulan_spk" width="100%" height="20"></canvas>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            </div>
+          @endif
       @endif
   </section>
   <!-- /.content -->
 
 @endsection
+
+
+@if ($hasil_kesimpulan != '')
+  @section('bagianjs')
+    <script type="text/javascript">
+    var ctx = document.getElementById('kesimpulan_spk').getContext('2d');
+var chart = new Chart(ctx, {
+  // The type of chart we want to create
+  type: 'line',
+
+  // The data for our dataset
+  data: {
+      labels: [
+        <?php
+        foreach ($hasil_kesimpulan as $key => $value) {
+          echo '"'. $key .'",';
+        }
+         ?>
+      ],
+      datasets: [{
+          label: "Hasil",
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: [
+            <?php
+            foreach ($hasil_kesimpulan as $key => $value) {
+              echo ''. $value .',';
+            }
+             ?>
+          ],
+      }]
+  },
+
+  // Configuration options go here
+  options: {}
+});
+    </script>
+  @endsection
+@endif

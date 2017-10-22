@@ -8,7 +8,9 @@ class Alternative extends Model
 {
     protected $table="alternative";
     protected $fillable = [
-      'nama'
+      'nama',
+      'user_id',
+      'kriteria_id'
     ];
     public $timestamps = false;
 }

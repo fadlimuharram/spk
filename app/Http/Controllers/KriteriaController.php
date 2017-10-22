@@ -16,7 +16,6 @@ class KriteriaController extends Controller
         "bobot"=>"required|array",
         "bobot.*"=>"required|string",
         "projekid"=>"required|exists:projek,id"
-
       ]);
 
       if ($validasi->fails()) {
@@ -54,6 +53,8 @@ class KriteriaController extends Controller
         ]);
 
       }
+
+      return redirect('/admin/kriteria/' . $req->projekid);
 
     }
 
