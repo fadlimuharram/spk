@@ -25,7 +25,7 @@
                         <div class="col-md-5">
 
                           @if ($data_alternative_sebelumnya != "")
-                            <select class="form-control" id="jmlalternative" disabled="disabled>
+                            <select class="form-control" id="jmlalternative" disabled="disabled">
                               @for ($i=3; $i <= 10; $i++)
                                 @if (count($data_alternative_sebelumnya) == $i)
                                     <option value="{{ $i }}" selected="true">{{ $i }}</option>
@@ -51,6 +51,7 @@
                       </div>
 
                       @if ($data_alternative_sebelumnya != "")
+
                         @foreach ($data_alternative_sebelumnya as $key => $value)
                           <div class="form-group">
                             <label for="select" class="col-md-2 control-label">Alternative Ke-{{ $key+1 }}</label>
